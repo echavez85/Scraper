@@ -39,7 +39,7 @@ app.get('/scrape', (req, res) => {
         var $ = cheerio.load(response.data);
         
         // grab h2 within article tag
-        $('article.story').each(i, element) => {
+        $("article.story").each(function(i, element) {
             var result = {};
 
             // add text and href of links. save as properties of result.
@@ -62,18 +62,16 @@ app.get('/scrape', (req, res) => {
                 .catch((err) => {
                     return res.json(err);
                 });
-        };
+        });
 
         res.redirect('/');
-
-    });
 });
 
 // GET route to get all articles from db
 app.get('/', (req,res) => {
     db.Article.find({}).populate('comments')
         .then((data) => {
-            res.render('index' { articles: data });
+            res.render('index', { articles: data });
         }).catch((err) => {
             res.json(err);
         });
@@ -136,5 +134,5 @@ app.get('/savedarticles', (req, res) => {
 
 // starting the server
 app.listen(PORT, () => {
-    console.log(`App running on port ${PORT}!`);
+    console.log(`App running on port ${PORT}!`)
 });
