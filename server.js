@@ -80,15 +80,61 @@ app.get('/', (req,res) => {
 });
 
 // GET route to get specific article by ID
+app.get('/articles/:id', (req, res) => {
+    db.Article.findById(req.params.id).populate('comments')
+        .then((data) => {
+            res.json(data);
+        }).catch((err) => {
+            res.json(err);
+        });
+});
 
 // POST to save article's note
+app.post('/articles/:id', (req, res) => {
+    db.Comment.create(req.body)
+        .then((dbComment) => {
+            return db.Article.findOneAndUpdate({ _id: req.params.id }, { $push: {comments: dbComment}})
+                .then((dbRes) => {
+                    res.redirect('/');
+                });
+        });
+});
 
 // POST to delete article's note
+app.post('/articles/delete/:id', (req, res) => {
+    db.Comment.remove({ _id: req.params.id })
+        .then((dbRemove) => {
+            res.json(dbRemove);
+        });
+});
 
 // POST to save article
+app.post('/articles/save/:id', (req, res) => {
+    db.Article.findByIdAndUpdate({ _id: req.params.id }, { saved: true })
+        .then((dbRes) => {
+            res.redirect('/');
+        });
+});
 
 // POST to unsave article
+app.post('/articles/unsave/:id', (req, res) => {
+    db.Article.findByIdAndUpdate({ _id: req.params.id }, { saved: false })
+        .then((dbRes) => {
+            res.redirect('/');
+        });
+});
 
 // GET to get all saved articles
+app.get('/savedarticles', (req, res) => {
+    db.Article.find({ saved: true }).populate('comments')
+        .then((data) => {
+            res.render('saved', { articles: data });
+        }).catch((err) => {
+            res.json(err);
+        });
+});
 
 // starting the server
+app.listen(PORT, () => {
+    console.log(`App running on port ${PORT}!`);
+});
