@@ -33,3 +33,62 @@ mongoose.connect(MONGODB_URI, {
 
 // set routes
 
+// GET route to scrape
+app.get('/scrape', (req, res) => {
+    axios.get('https://www.nytimes.com/').then((response) => {
+        var $ = cheerio.load(response.data);
+        
+        // grab h2 within article tag
+        $('article.story').each(i, element) => {
+            var result = {};
+
+            // add text and href of links. save as properties of result.
+            result.title = $(this)
+                .children('h2.story-heading')
+                .children('a')
+                .text();
+            result.link = $(this)
+                .children('h2.story-heading')
+                .children('a')
+                .attr('href');
+            result.summary = $(this)
+                .children('p.summary')
+                .text();
+
+            db.Article.create(result)
+                .then((dbArticle) => {
+
+                })
+                .catch((err) => {
+                    return res.json(err);
+                });
+        };
+
+        res.redirect('/');
+
+    });
+});
+
+// GET route to get all articles from db
+app.get('/', (req,res) => {
+    db.Article.find({}).populate('comments')
+        .then((data) => {
+            res.render('index' { articles: data });
+        }).catch((err) => {
+            res.json(err);
+        });
+});
+
+// GET route to get specific article by ID
+
+// POST to save article's note
+
+// POST to delete article's note
+
+// POST to save article
+
+// POST to unsave article
+
+// GET to get all saved articles
+
+// starting the server
