@@ -91,7 +91,7 @@ app.get('/articles/:id', (req, res) => {
 
 // POST to save article's note
 app.post('/articles/:id', (req, res) => {
-    db.Comment.create(req.body)
+    db.Comments.create(req.body)
         .then((dbComment) => {
             return db.Article.findOneAndUpdate({ _id: req.params.id }, { $push: {comments: dbComment}})
                 .then((dbRes) => {
@@ -102,7 +102,7 @@ app.post('/articles/:id', (req, res) => {
 
 // POST to delete article's note
 app.post('/articles/delete/:id', (req, res) => {
-    db.Comment.remove({ _id: req.params.id })
+    db.Comments.remove({ _id: req.params.id })
         .then((dbRemove) => {
             res.json(dbRemove);
         });
