@@ -1,1 +1,2 @@
-# Scraper
+# BuzzfeedScraper
+##BuzzfeedScraper is an application that utilizes MongoDB, Express, Node, Handlebars, Cheerio, and Javascript to find articles from the Buzzfeed and give users the ability to save articles and add notes to those articles in a mongo database.
