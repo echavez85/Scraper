@@ -1,30 +1,31 @@
 {
-  "name": "newsscraper",
+  "name": "scraper",
   "version": "1.0.0",
   "description": "",
   "main": "server.js",
+  "dependencies": {
+    "axios": "^0.18.0",
+    "cheerio": "^1.0.0-rc.2",
+    "express": "^4.16.4",
+    "express-handlebars": "^3.0.2",
+    "mongoose": "^5.4.20",
+    "morgan": "^1.9.1",
+    "path": "^0.12.7",
+    "request": "^2.88.0"
+  },
+  "devDependencies": {},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/langhamerm/NewsScraper.git"
+    "url": "git+https://github.com/echavez85/Scraper.git"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/langhamerm/NewsScraper/issues"
+    "url": "https://github.com/echavez85/Scraper/issues"
   },
-  "homepage": "https://github.com/langhamerm/NewsScraper#readme",
-  "dependencies": {
-    "axios": "^0.18.0",
-    "cheerio": "^1.0.0-rc.2",
-    "express": "^4.16.4",
-    "express-handlebars": "^3.0.2",
-    "mongoose": "^5.4.16",
-    "morgan": "^1.9.1",
-    "path": "^0.12.7",
-    "request": "^2.88.0"
-  }
+  "homepage": "https://github.com/echavez85/Scraper#readme"
 }
